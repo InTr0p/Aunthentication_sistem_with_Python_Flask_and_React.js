@@ -1,11 +1,35 @@
-import React, { useState } from "react";
-import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { DiGithubFull } from "react-icons/di";
+import React, {useContext, useState} from "react";
+import {Context} from "../store/appContext";
+import {FaEye, FaEyeSlash} from "react-icons/fa";
+import {DiGithubFull} from "react-icons/di";
 import "../../styles/Login.css";
+
 export const Login = () => {
+  const {store, actions} = useContext(Context);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleClick = () => {
+    const opts = {
+      method: "POST",
+      body: JSON.stringify({email: email, password: password}),
+    };
+    fetch(
+      "https://3000-intr0p-aunthentications-r7o3kn0vigy.ws-us47.gitpod.io/api/token",
+      opts
+    )
+      .then((resp) => {
+        if (resp.status === 200) return resp.json();
+        else alert("Oh noo!. There was an error", error);
+      })
+      .then()
+      .catch((error) => {
+        console.error("Oh noo!. There was an error:(", error);
+      });
+  };
+
   const [passwordType, setPasswordType] = useState("password");
   const [passwordIcon, setPasswordIcon] = useState(<FaEyeSlash />);
-
   const handelToggle = () => {
     if (passwordType === "password") {
       setPasswordType("text");
@@ -37,6 +61,8 @@ export const Login = () => {
                       placeholder="Enter Your Email"
                       id="typeEmailX"
                       className="form-control form-control-lg bg-dark text-info"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
                     />
 
                     <label
@@ -53,6 +79,8 @@ export const Login = () => {
                       placeholder="Your Current Password "
                       id="typePasswordX"
                       className="form-control form-control-lg bg-dark text-info position-relative "
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
                     />
 
                     <span
@@ -71,6 +99,7 @@ export const Login = () => {
                   <button
                     className="btn Login_btn btn-outline-info btn-lg px-5"
                     type="submit"
+                    onClick={handleClick}
                   >
                     Login
                   </button>
