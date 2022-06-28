@@ -1,4 +1,4 @@
-import React, {useContext, useState} from "react";
+import React, {useContext, useState, UseHistory} from "react";
 import { Context } from "../store/appContext";
 import { useHistory } from  "react-router";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
@@ -13,7 +13,7 @@ export const Login = () => {
 
   const handleClick = () => {
   actions.Login(email, password).then(()  => {
-  history.push("/")})};
+   history.push("/")})};
 
   const [passwordType, setPasswordType] = useState("password");
   const [passwordIcon, setPasswordIcon] = useState(<FaEyeSlash />);
@@ -111,4 +111,4 @@ export const Login = () => {
       </div> 
     </section>
   );
-};
+}
