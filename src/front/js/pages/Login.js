@@ -73,7 +73,7 @@ export const Login = () => {
                     >
                       Email
                       <br />
-                      (test)
+                      (InTr0p@gmail.com)
                     </label>
                   </div>
 
@@ -99,7 +99,7 @@ export const Login = () => {
                     >
                       Password
                       <br />
-                      (test)
+                      (1234)
                     </label>
                   </div>
                   <button
