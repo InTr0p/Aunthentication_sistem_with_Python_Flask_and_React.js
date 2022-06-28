@@ -24,8 +24,10 @@ export const Login = () => {
         if (resp.status === 200) return resp.json();
         else alert("Oh noo!. There was an error", error);
       })
-      .then()
-      .catch(error => { 
+      .then(data =>{
+       console.log("this came fron the backend",data)
+      localStorage.setItem("token", data.acces_token);})
+      .catch(error => {
         console.error("Oh noo!. There was an error:(", error);
       });
   };
@@ -123,7 +125,7 @@ export const Login = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div> 
     </section>
   );
 };
