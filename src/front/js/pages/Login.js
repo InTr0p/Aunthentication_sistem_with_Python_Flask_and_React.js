@@ -1,6 +1,7 @@
 import React, {useContext, useState} from "react";
-import {Context} from "../store/appContext";
-import {FaEye, FaEyeSlash} from "react-icons/fa";
+import { Context } from "../store/appContext";
+import { useHistory } from  "react-router";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 import {DiGithubFull} from "react-icons/di";
 import "../../styles/Login.css";
 
@@ -8,29 +9,11 @@ export const Login = () => {
   const {store, actions} = useContext(Context);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const history = useHistory();
 
   const handleClick = () => {
-    const opts = {
-      method: "POST",
-      headers: {
-      "Content-Type": "application/json"},
-
-      body: JSON.stringify({"email": email, "password": password})
-    };
-
-    fetch(
-      "https://3001-intr0p-aunthentications-r7o3kn0vigy.ws-us47.gitpod.io/api/token",opts)
-      .then(resp => {
-        if (resp.status === 200) return resp.json();
-        else alert("Oh noo!. There was an error", error);
-      })
-      .then(data =>{
-       console.log("this came fron the backend",data)
-      localStorage.setItem("token", data.acces_token);})
-      .catch(error => {
-        console.error("Oh noo!. There was an error:(", error);
-      });
-  };
+  actions.Login(email, password).then(()  => {
+  history.push("/")})};
 
   const [passwordType, setPasswordType] = useState("password");
   const [passwordIcon, setPasswordIcon] = useState(<FaEyeSlash />);
