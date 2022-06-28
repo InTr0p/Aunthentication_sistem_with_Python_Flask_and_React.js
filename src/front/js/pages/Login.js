@@ -12,18 +12,20 @@ export const Login = () => {
   const handleClick = () => {
     const opts = {
       method: "POST",
-      body: JSON.stringify({email: email, password: password}),
+      headers: {
+      "Content-Type": "application/json"},
+
+      body: JSON.stringify({"email": email, "password": password})
     };
+
     fetch(
-      "https://3000-intr0p-aunthentications-r7o3kn0vigy.ws-us47.gitpod.io/api/token",
-      opts
-    )
-      .then((resp) => {
+      "https://3001-intr0p-aunthentications-r7o3kn0vigy.ws-us47.gitpod.io/api/token",opts)
+      .then(resp => {
         if (resp.status === 200) return resp.json();
         else alert("Oh noo!. There was an error", error);
       })
       .then()
-      .catch((error) => {
+      .catch(error => { 
         console.error("Oh noo!. There was an error:(", error);
       });
   };
@@ -44,7 +46,7 @@ export const Login = () => {
     <section className="vh-100 gradient-custom">
       <div className="container py-5 h-100">
         <div className="row d-flex justify-content-center align-items-center h-100">
-          <div className="col-12 col-md-8 col-lg-6 col-xl-5 shadow p-1 mb-1 bg-info rounded">
+          <div className="col-12 col-md-8 col-lg-6 col-xl-5  shadow p-1 mb-1 bg-info rounded">
             <div className="card bg-dark text-white">
               <div className="card-body p-5 text-center">
                 <div className="mb-md-5 mt-md-4 pb-5">
@@ -70,6 +72,8 @@ export const Login = () => {
                       htmlFor="typeEmailX"
                     >
                       Email
+                      <br />
+                      (test)
                     </label>
                   </div>
 
@@ -94,11 +98,13 @@ export const Login = () => {
                       htmlFor="typePasswordX"
                     >
                       Password
+                      <br />
+                      (test)
                     </label>
                   </div>
                   <button
                     className="btn Login_btn btn-outline-info btn-lg px-5"
-                    type="submit"
+
                     onClick={handleClick}
                   >
                     Login
