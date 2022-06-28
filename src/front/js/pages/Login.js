@@ -1,7 +1,7 @@
-import React, {useContext, useState, UseHistory} from "react";
-import { Context } from "../store/appContext";
-import { useHistory } from  "react-router";
-import { FaEye, FaEyeSlash } from "react-icons/fa";
+import React, {useContext, useState} from "react";
+import {Context} from "../store/appContext";
+import {useNavigate} from "react-router";
+import {FaEye, FaEyeSlash} from "react-icons/fa";
 import {DiGithubFull} from "react-icons/di";
 import "../../styles/Login.css";
 
@@ -9,11 +9,13 @@ export const Login = () => {
   const {store, actions} = useContext(Context);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const history = useHistory();
+ const navigate = useNavigate();
 
   const handleClick = () => {
-  actions.Login(email, password).then(()  => {
-   history.push("/")})};
+    actions.Login(email, password).then(() => {
+      history.push("/");
+    });
+  };
 
   const [passwordType, setPasswordType] = useState("password");
   const [passwordIcon, setPasswordIcon] = useState(<FaEyeSlash />);
@@ -89,7 +91,6 @@ export const Login = () => {
                   </div>
                   <button
                     className="btn Login_btn btn-outline-info btn-lg px-5"
-
                     onClick={handleClick}
                   >
                     Login
@@ -108,7 +109,7 @@ export const Login = () => {
             </div>
           </div>
         </div>
-      </div> 
+      </div>
     </section>
   );
-}
+};
