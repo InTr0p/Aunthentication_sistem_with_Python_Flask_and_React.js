@@ -3,12 +3,12 @@ import {Context} from "../store/appContext";
 import {useHistory} from "react-router-dom";
 import {FaEye, FaEyeSlash} from "react-icons/fa";
 
-
 export const Login = () => {
   const {store, actions} = useContext(Context);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const history = useHistory();
+  const token = sessionStorage.getItem("token")
 
   const [passwordType, setPasswordType] = useState("password");
   const [passwordIcon, setPasswordIcon] = useState(<FaEyeSlash />);
@@ -28,8 +28,8 @@ export const Login = () => {
     actions.Login(email, password);
   };
 
-  if (store.token && store.token != "" && store.token != undefined)
-    history.push("/");
+  // if (store.token && store.token != "" && store.token != undefined)
+  //   history.push("/");
 
   return (
     <div className="text-center mt-5">
