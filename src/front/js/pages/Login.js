@@ -1,6 +1,8 @@
 import React, {useContext, useState} from "react";
 import {Context} from "../store/appContext";
-import {useNavigate} from "react-router";
+// import {useNavigate} from "react-router-dom";
+import {useHistory} from "react-router-dom";
+
 import {FaEye, FaEyeSlash} from "react-icons/fa";
 import {DiGithubFull} from "react-icons/di";
 import "../../styles/Login.css";
@@ -9,12 +11,16 @@ export const Login = () => {
   const {store, actions} = useContext(Context);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
- const navigate = useNavigate();
+  const token = localStorage.getItem("token");
+  // const navigate = useNavigate();
+  const history = useHistory();
 
   const handleClick = () => {
-    actions.Login(email, password).then(() => {
-      history.push("/");
-    });
+    actions.Login(email, password);
+
+    // actions.login(email, password).then(() => {
+    // history.push("/")
+    // })
   };
 
   const [passwordType, setPasswordType] = useState("password");
@@ -29,6 +35,8 @@ export const Login = () => {
     }
   };
 
+  if (store.token && store.token != "" && store.token != undefined)
+    history.push("/");
   return (
     <section className="vh-100 gradient-custom">
       <div className="container py-5 h-100">
@@ -41,6 +49,8 @@ export const Login = () => {
                     Login
                   </h2>
                   <p className="text-info mb-5">
+                    *Press f12 and view token in browser console*
+                    <br />
                     Please enter your email and password!
                   </p>
 

@@ -1,24 +1,24 @@
 import React from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import ScrollToTop from "./component/scrollToTop";
-import { Login } from "./pages/Login.js";
+import {BrowserRouter, Route, Switch} from "react-router-dom";
+import {Login} from "./pages/Login";
 import injectContext from "./store/appContext";
 
 const Layout = () => {
   const basename = process.env.BASENAME || "";
 
   return (
-    <div>
+    <>
       <BrowserRouter basename={basename}>
-        <ScrollToTop>
-          <Routes>
-            <Route element={<Login />} path="/" />
-            <Route element={<h1>Not found!</h1>} />
-          </Routes>
-        </ScrollToTop>
+        <Switch>
+          <Route exact path="/">
+            <Login />
+          </Route>
+          <Route>
+            <h1>Not found! c:</h1>
+          </Route>
+        </Switch>
       </BrowserRouter>
-    </div>
+    </>
   );
 };
-
 export default injectContext(Layout);
