@@ -24,6 +24,7 @@ const getState = ({getStore, getActions, setStore}) => {
 
       syncTokenSessionStorage: () => {
         const token = sessionStorage.getItem("token");
+        console.log("Application just loaded, synching the sessionStorage token")
         if (token && token != "" && token != undefined)
           setStore({token:token});
       },
