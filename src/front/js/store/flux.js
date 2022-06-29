@@ -23,7 +23,7 @@ const getState = ({getStore, getActions, setStore}) => {
       },
 
       syncTokenSessionStorage: () => {
-        const token = localStorage.getItem("token");
+        const token = sessionStorage.getItem("token");
         if (token && token != "" && token != undefined)
           setStore({token:token});
       },
@@ -50,7 +50,7 @@ const getState = ({getStore, getActions, setStore}) => {
 
           const data = await resp.json();
           console.log("this came fron the backend", data);
-          localStorage.setItem("token", data.acces_token);
+          sessionStorage.setItem("token", data.acces_token);
           setStore({token: data.acces_token});
           return true;
         } catch (error) {
