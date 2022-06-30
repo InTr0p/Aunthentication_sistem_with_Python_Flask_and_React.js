@@ -1,7 +1,7 @@
 const getState = ({getStore, getActions, setStore}) => {
   return {
     store: {
-    token: null,
+      token: null,
       message: null,
       demo: [
         {
@@ -19,12 +19,14 @@ const getState = ({getStore, getActions, setStore}) => {
     actions: {
       // Use getActions to call a function within a fuction
       exampleFunction: () => {
-        getActions().changeColor(0, "green");
+       getActions().changeColor(0, "green");
       },
 
       syncTokenSessionStorage: () => {
         const token = sessionStorage.getItem("token");
-        console.log("Application just loaded, synching the sessionStorage token")
+        console.log(
+          "Application just loaded, synching the sessionStorage token"
+        );
         if (token && token != "" && token != undefined)
           setStore({token:token});
       },
@@ -36,15 +38,12 @@ const getState = ({getStore, getActions, setStore}) => {
             "Content-Type": "application/json",
           },
 
-          body: JSON.stringify({email: email, password: password}),
+          body: JSON.stringify({email: email, password: password})
         };
-
-        try {
-          const resp = await fetch(
-            "https://3001-intr0p-aunthentications-r7o3kn0vigy.ws-us47.gitpod.io/api/token",
-            opts
-          );
-          if (resp.status !== 200) {
+        try{
+            const resp = await fetch(
+            "https://3001-intr0p-aunthentications-r7o3kn0vigy.ws-us47.gitpod.io/api/token",opts)
+            if (resp.status !== 200){
             alert("Oh noo!. There was an error");
             return false;
           }
@@ -52,24 +51,21 @@ const getState = ({getStore, getActions, setStore}) => {
           const data = await resp.json();
           console.log("this came fron the backend", data);
           sessionStorage.setItem("token", data.acces_token);
-          setStore({token: data.acces_token});
           return true;
-        } catch (error) {
-          console.error("Oh noo.There has been an error login in ");
+        }
+           catch (error) {
+          console.error("Oh noo.There has been an error login in ")
+          setStore({token: data.acces_token});
         }
       },
 
-      getMessage: async () => {
-        try {
-          // fetching data from the backend
-          const resp = await fetch(process.env.BACKEND_URL + "/api/hello");
-          const data = await resp.json();
-          setStore({message: data.message});
-          // don't forget to return something, that is how the async resolves
-          return data;
-        } catch (error) {
-          console.log("Error loading message from backend", error);
-        }
+      getMessage: () => {
+        fetch(process.env.BACKEND_URL + "/api/hello")
+          .then((resp) => resp.json())
+          .then((data) => setStore({message: data.message}))
+          .catch((error) =>
+            console.log("Error loading message from backend", error)
+          );
       },
       changeColor: (index, color) => {
         //get the store
