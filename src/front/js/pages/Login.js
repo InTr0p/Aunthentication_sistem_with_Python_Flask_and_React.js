@@ -9,27 +9,11 @@ export const Login = () => {
   const [password, setPassword] = useState("");
   const history = useHistory();
 
-  // const [passwordType, setPasswordType] = useState("password");
-  // const [passwordIcon, setPasswordIcon] = useState(<FaEyeSlash />);
-
-  // const handelToggle = () => {
-  //   if (passwordType === "password") {
-  //     setPasswordType("text");
-  //     // setPasswordIcon(FaEye);
-  //   } else {
-  //     setPasswordType("password");
-  //     // setPasswordIcon(FaEyeSlash);
-  //   }
-  // };
-
   const token = sessionStorage.getItem("token");
   console.log("This Is Your Token: ",token);
   const handleClick = () => {
     actions.Login(email, password);
   };
-
-  // if (token && token != "" && token != undefined)
-  //   history.push("/");
 
   return (
     <div className="text-center mt-5">
@@ -40,20 +24,17 @@ export const Login = () => {
           <input
             type="text"
             placeholder="email"
-            // id="typeEmailX"
+
              value={email}
             onChange={e => setEmail(e.target.value)}
           />
 
           <input
-            // type={passwordType}
             placeholder="password "
-            // id="typePasswordX"
             value={password}
             onChange={e => setPassword(e.target.value)}
           />
 
-          {/* <span onClick={handelToggle}>{passwordIcon}</span> */}
           <button onClick={handleClick}>Login</button>
         </div>
       )}
